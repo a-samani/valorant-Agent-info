@@ -61,7 +61,24 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/waiting.png
+    - assets/images/omen.png
+    - assets/images/brim.jpg
+    - assets/images/viper.jpg
+    - assets/images/astra.jpg
+    - assets/images/breach.jpg
+    - assets/images/chamber.png
+    - assets/images/cypher.jpg
+    - assets/images/jett.jpg
+    - assets/images/kayo.jpg
+    - assets/images/neon.jpg
+    - assets/images/pho.jpg
+    - assets/images/raze.jpg
+    - assets/images/reyna.jpg
+    - assets/images/sage.jpg
+    - assets/images/skye.jpg
+    - assets/images/kj.jpg
+    - assets/images/sova.jpg
+    - assets/images/yoru.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
