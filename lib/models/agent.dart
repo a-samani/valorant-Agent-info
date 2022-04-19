@@ -4,6 +4,7 @@ class Agent {
   final String info;
   final String image;
   final List<Map<String, String>> abilities;
+  bool isFave = false;
   Agent(
       {required this.name,
       required this.role,
@@ -12,6 +13,10 @@ class Agent {
       required this.abilities});
   String printrole() {
     return role.toString().substring(6);
+  }
+
+  void makeFave() {
+    isFave = !isFave;
   }
 }
 

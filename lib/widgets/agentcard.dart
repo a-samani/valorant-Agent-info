@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/agent.dart';
 
-class AgentCard extends StatelessWidget {
+class AgentCard extends StatefulWidget {
   final List<Agent> agents;
   const AgentCard({
     Key? key,
@@ -11,21 +11,31 @@ class AgentCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AgentCard> createState() => _AgentCardState();
+}
+
+class _AgentCardState extends State<AgentCard> {
+  void _makefave(index) {
+    setState(() {
+      widget.agents[index].makeFave();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: agents.length,
+      itemCount: widget.agents.length,
       itemBuilder: (context, index) => GestureDetector(
         onTap: () {
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: Text(agents[index].name),
+              title: Text(widget.agents[index].name),
               content: Container(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ...agents[index]
-                          .abilities
+                      ...widget.agents[index].abilities
                           .map(
                             (e) => ListTile(
                               title: Text(e.keys.toString()),
@@ -43,11 +53,27 @@ class AgentCard extends StatelessWidget {
           elevation: 5,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundImage: AssetImage(agents[index].image),
+              backgroundImage: AssetImage(widget.agents[index].image),
               radius: 30,
             ),
-            title: Text(agents[index].name),
-            subtitle: Text(agents[index].printrole()),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.agents[index].name),
+                widget.agents[index].isFave
+                    ? IconButton(
+                        onPressed: () {
+                          _makefave(index);
+                        },
+                        icon: const Icon(Icons.star, color: Colors.amber))
+                    : IconButton(
+                        onPressed: () {
+                          _makefave(index);
+                        },
+                        icon: const Icon(Icons.star_outline))
+              ],
+            ),
+            subtitle: Text(widget.agents[index].printrole()),
           ),
         ),
       ),
