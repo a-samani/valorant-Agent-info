@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/agent.dart';
-import 'package:quiz_app/widgets/agentcard.dart';
+import 'widgets/agentlist.dart';
 
 void main() => runApp(MyApp());
 
@@ -277,21 +277,24 @@ Remember that Cypher is one of the few agents whose abilities do not have friend
         image: 'assets/images/kayo.jpg',
         abilities: [
           {
-            'FRAG/MENT': '''
+            'FRAG/MENT':
+                '''
 
 FRAG/MENT is basically a grenade that deals damage multiple times in a radius. Once thrown,
 the ability will stick to the floor wherever it lands and dish almost enough damage to take out an enemy each time it pulses.
 '''
           },
           {
-            'FLASH/DRIVE': '''
+            'FLASH/DRIVE':
+                '''
 
 FLASH/DRIVE is a good old flashbang. This ability can bounce multiple times, but you'll more
 than likely see it bounce once before going off. It's got a two second cook time, so it's great for flashing from far away. The alt fire for this ability shortens the cook time, making it ideal for unexpected peaks or for quick rushes.
 '''
           },
           {
-            'ZERO/POINT': '''
+            'ZERO/POINT':
+                '''
 
 ZERO/POINT is KAY/O's signature ability, and it's where all the suppression starts. The ability
 looks like a knife, and it has the game physics of one too. Once thrown, it will stick to a surface, wind up, and suppress any enemies caught in a circled area around it. It will also tell KAY/O and teammates what enemies are currently suppressed.
@@ -302,7 +305,8 @@ looks like a knife, and it has the game physics of one too. Once thrown, it will
                 '''NULL/CMD is essentially a power up for KAY/O. Once activated, KAY/O has an increased fire rate and emits suppression pulses in a large area around him, going through walls and any other map terrain to suppress enemies. If KAY/O is downed while in this ability, teammates have 15 seconds to come revive him.''',
           },
           {
-            'tips': '''
+            'tips':
+                '''
 
 While NULL/CMD provides a powerful fire rate buff for KAY/O, the only way to get full use of the ability is to use it with your team. KAY/O's pretty powerful, and his abilities set him up well for solo play, but he’ll need his teammates if he wants to be revived.
 
@@ -596,9 +600,7 @@ Another way to get value out of your wall is by using it to help secure ultimate
           title: const Text('Valorant +'),
           actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.sort))],
         ),
-        body: AgentCard(
-          agents: _agents,
-        ),
+        body: AgentList(agents: _agents),
       ),
     );
   }
