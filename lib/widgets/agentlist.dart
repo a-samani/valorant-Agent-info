@@ -10,11 +10,17 @@ class AgentList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child: ListView.builder(
+      child:  GestureDetector(
+        onTap: (){
+          print("Container clicked");
+        },
+        child: ListView.builder(
         itemCount: agents.length,
         itemBuilder: (context, index) => AgentCard(
           agent: agents[index],
         ),
+    ),
+      
       ),
     );
   }

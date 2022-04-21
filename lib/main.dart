@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/agent.dart';
+import 'data/menu_items.dart';
+import 'models/menu_item.dart';
 import 'widgets/agentlist.dart';
 
 void main() => runApp(MyApp());
@@ -16,8 +18,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final List<Agent> _agents = [
     Agent(
         name: 'Omen',
@@ -277,24 +285,21 @@ Remember that Cypher is one of the few agents whose abilities do not have friend
         image: 'assets/images/kayo.jpg',
         abilities: [
           {
-            'FRAG/MENT':
-                '''
+            'FRAG/MENT': '''
 
 FRAG/MENT is basically a grenade that deals damage multiple times in a radius. Once thrown,
 the ability will stick to the floor wherever it lands and dish almost enough damage to take out an enemy each time it pulses.
 '''
           },
           {
-            'FLASH/DRIVE':
-                '''
+            'FLASH/DRIVE': '''
 
 FLASH/DRIVE is a good old flashbang. This ability can bounce multiple times, but you'll more
 than likely see it bounce once before going off. It's got a two second cook time, so it's great for flashing from far away. The alt fire for this ability shortens the cook time, making it ideal for unexpected peaks or for quick rushes.
 '''
           },
           {
-            'ZERO/POINT':
-                '''
+            'ZERO/POINT': '''
 
 ZERO/POINT is KAY/O's signature ability, and it's where all the suppression starts. The ability
 looks like a knife, and it has the game physics of one too. Once thrown, it will stick to a surface, wind up, and suppress any enemies caught in a circled area around it. It will also tell KAY/O and teammates what enemies are currently suppressed.
@@ -305,8 +310,7 @@ looks like a knife, and it has the game physics of one too. Once thrown, it will
                 '''NULL/CMD is essentially a power up for KAY/O. Once activated, KAY/O has an increased fire rate and emits suppression pulses in a large area around him, going through walls and any other map terrain to suppress enemies. If KAY/O is downed while in this ability, teammates have 15 seconds to come revive him.''',
           },
           {
-            'tips':
-                '''
+            'tips': '''
 
 While NULL/CMD provides a powerful fire rate buff for KAY/O, the only way to get full use of the ability is to use it with your team. KAY/O's pretty powerful, and his abilities set him up well for solo play, but he’ll need his teammates if he wants to be revived.
 
@@ -592,16 +596,95 @@ Another way to get value out of your wall is by using it to help secure ultimate
           {'tips': ''}
         ]),
   ];
+
+  List<Agent> filteredAgents = [];
+
+  @override
+  void initState() {
+    filteredAgents = _agents;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Valorant +'),
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.sort))],
+          title: const Text('Valorant+'),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: PopupMenuButton<MenuItem>(
+                onSelected: (item) => onSelectedFilter(context, item),
+                itemBuilder: (context) => [
+                  ...MenuItems.menuItems.map(buildFilterItem).toList(),
+                ],
+                icon: const Icon(Icons.sort),
+              ),
+            ),
+          ],
         ),
-        body: AgentList(agents: _agents),
+        body: AgentList(agents: filteredAgents),
       ),
     );
+  }
+
+  PopupMenuItem<MenuItem> buildFilterItem(MenuItem item) => PopupMenuItem<MenuItem>(
+      value: item,
+      child: Row(
+        children: [
+          Icon(
+            item.icon,
+            color: item.iconColor.withOpacity(0.5),
+            size: 20,
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Text(
+            item.text,
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
+      ));
+
+  onSelectedFilter(BuildContext context, MenuItem item) {
+    setState(() {
+
+      switch (item) {
+        case MenuItems.itemFilterByControllers:
+
+          filteredAgents = _agents;
+          filteredAgents = filteredAgents
+              .where((Agent element) => element.role == Roles.Controller)
+              .toList();
+          break;
+
+        case MenuItems.itemFilterByDuelists:
+
+          filteredAgents = _agents;
+          filteredAgents = filteredAgents
+              .where((Agent element) => element.role == Roles.Duelist)
+              .toList();
+          break;
+
+        case MenuItems.itemFilterByInitiators:
+
+          filteredAgents = _agents;
+          filteredAgents = filteredAgents
+              .where((Agent element) => element.role == Roles.Initiators)
+              .toList();
+          break;
+
+        case MenuItems.itemFilterBySentinels:
+        
+          filteredAgents = _agents;
+          filteredAgents = filteredAgents
+              .where((Agent element) => element.role == Roles.Sentinel)
+              .toList();
+          break;
+      }
+    });
   }
 }
