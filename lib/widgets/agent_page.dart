@@ -11,20 +11,19 @@ class AgentPage extends StatefulWidget {
 }
 
 class _AgentPageState extends State<AgentPage> {
+  
   String shownText = "";
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      
-    });
+    setState(() {});
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.agent.name),
         centerTitle: true,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
             child: Container(
@@ -38,13 +37,23 @@ class _AgentPageState extends State<AgentPage> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               for (int i = 0; i < widget.agent.abilities.length; i++)
-                buildBox(child: GestureDetector(child: Text(widget.agent.abilities[i].keys.toString()),
-                onTap: () => setState(() {
-                  shownText = widget.agent.abilities[i].values.toString();
-                }), ))
+                buildBox(
+                    child: GestureDetector(
+                  child: Text(widget.agent.abilities[i].keys.toString().substring(1,widget.agent.abilities[i].keys.toString().length-1)), //removing the 'c' from abilities
+                  onTap: () {
+                    int shownTextLength =
+                        widget.agent.abilities[i].values.toString().length - 1;
+                    setState(() {
+                      shownText =
+                          widget.agent.abilities[i].values.toString().substring( //removing the 'c' from descriptions
+                                1,shownTextLength
+                              );
+                    });
+                  },
+                ))
             ],
           ),
           Text(shownText),
@@ -54,12 +63,15 @@ class _AgentPageState extends State<AgentPage> {
   }
 
   buildBox({required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.red.shade200,
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.red.shade200,
+        ),
+        padding: EdgeInsets.all(8),
+        child: child,
       ),
-      padding: EdgeInsets.all(8),
-      child: child,
     );
   }
 }
