@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/agent.dart';
+import 'package:quiz_app/widgets/agent_page.dart';
 import 'package:quiz_app/widgets/agentcard.dart';
 
 class AgentList extends StatelessWidget {
@@ -10,17 +11,16 @@ class AgentList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child:  GestureDetector(
-        onTap: (){
-          print("Container clicked");
-        },
-        child: ListView.builder(
+      child: ListView.builder(
         itemCount: agents.length,
-        itemBuilder: (context, index) => AgentCard(
+        itemBuilder: (context, index) => GestureDetector(child: AgentCard(
           agent: agents[index],
         ),
-    ),
-      
+        onTap: () {
+          Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => AgentPage(agent: agents[index],))
+        );
+        },) 
       ),
     );
   }
