@@ -611,7 +611,6 @@ Another way to get value out of your wall is by using it to help secure ultimate
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Valorant+'),
-          centerTitle: true,
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
@@ -630,31 +629,30 @@ Another way to get value out of your wall is by using it to help secure ultimate
     );
   }
 
-  PopupMenuItem<MenuItem> buildFilterItem(MenuItem item) => PopupMenuItem<MenuItem>(
-      value: item,
-      child: Row(
-        children: [
-          Icon(
-            item.icon,
-            color: item.iconColor.withOpacity(0.5),
-            size: 20,
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Text(
-            item.text,
-            style: TextStyle(color: Colors.black),
-          ),
-        ],
-      ));
+  PopupMenuItem<MenuItem> buildFilterItem(MenuItem item) =>
+      PopupMenuItem<MenuItem>(
+          value: item,
+          child: Row(
+            children: [
+              Icon(
+                item.icon,
+                color: item.iconColor.withOpacity(0.5),
+                size: 20,
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Text(
+                item.text,
+                style: TextStyle(color: Colors.black),
+              ),
+            ],
+          ));
 
   onSelectedFilter(BuildContext context, MenuItem item) {
     setState(() {
-
       switch (item) {
         case MenuItems.itemFilterByControllers:
-
           filteredAgents = _agents;
           filteredAgents = filteredAgents
               .where((Agent element) => element.role == Roles.Controller)
@@ -662,7 +660,6 @@ Another way to get value out of your wall is by using it to help secure ultimate
           break;
 
         case MenuItems.itemFilterByDuelists:
-
           filteredAgents = _agents;
           filteredAgents = filteredAgents
               .where((Agent element) => element.role == Roles.Duelist)
@@ -670,7 +667,6 @@ Another way to get value out of your wall is by using it to help secure ultimate
           break;
 
         case MenuItems.itemFilterByInitiators:
-
           filteredAgents = _agents;
           filteredAgents = filteredAgents
               .where((Agent element) => element.role == Roles.Initiators)
@@ -678,7 +674,6 @@ Another way to get value out of your wall is by using it to help secure ultimate
           break;
 
         case MenuItems.itemFilterBySentinels:
-        
           filteredAgents = _agents;
           filteredAgents = filteredAgents
               .where((Agent element) => element.role == Roles.Sentinel)
