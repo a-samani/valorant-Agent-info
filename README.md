@@ -1,6 +1,7 @@
-# quiz_app
+# valorant +
 
-A new Flutter project.
+A new Flutter project for the new rising-game "valorant". 
+The app is going to give some information about the agents in the game like their abilities and ... .
 
 ## Getting Started
 
